@@ -10,7 +10,7 @@
   <hr />
   <h2>{{ 'Funcion repeat JS en Angular interpoletion '.repeat(4) }}</h2>
   <p>Sumatoria {{ 4 + 4 }}</p>
-  <p>Ing. {{ name }} edad {{ age }}</p>
+  <p>Ing. {{ name }} edad {{ person.age }}</p>
   <hr />
   <img [src]="img" alt="">
   <p>person: {{person.job}}</p>
@@ -25,10 +25,47 @@
     </li>
   </ul>
   <button (dblclick)="clikHandler()">Double Click</button>
-  <p>(change)</p>
-  <input type="number" [value]="person.timeRole" (change)="changeHandler($event)">
+  <p>Edad</p>
+  <input type="number" [(ngModel)]="person.age" (change)="changeHandler($event)">
   <p>(keydown)</p>
   <input type="text" [value]="person.department" (keydown)="keyDownHandler($event)">
   <p>(keydown)</p>
-  <input type="text" [value]="person.job" (keydown.shift.t)="clikHandler()">
+  <input type="text" [(ngModel)]="person.job">
+  <div *ngIf="1 !=1">
+    Pedro
+  </div>
+  <div *ngIf="person.age >= 18 else elseBlock">
+    Developer habilitado para trabajar
+  </div>
+  <ng-template #elseBlock>
+    Inabilitado para trabajar
+  </ng-template>
+  <div *ngIf="person.job === 'Developer'">
+    Esto entra solo si el trabajo es Developer
+  </div>
+  <div [ngSwitch]="person.department">
+    <p *ngSwitchCase="'Development'">Developer Disponible</p>
+    <p *ngSwitchDefault>Developer No Disponible</p>
+  </div>
+  <hr />
+  <input type="color" [formControl]="colorCtr">
+  <p>color: {{colorCtr.value}}</p>
+  <svg>
+    <g>
+      <rect x="0" y="0" height="100" width="100" [attr.fill]="colorCtr.value" />
+    </g>
+  </svg>
+  <hr />
+  <input type="number" [formControl]="widthCtr">
+  <hr />
+  <span class="box" [style.width.px]="widthCtr.value">
+  </span>
+  <hr />
+  <p>
+    <input type="text" [formControl]="nameCtr"><br />
+    <span class="message-error" [class.show]="nameCtr.invalid && nameCtr.touched">El nombre no cumple con los requisitos</span>
+  </p>
+  <p>
+    <input type="text">
+  </p>
 </div>
